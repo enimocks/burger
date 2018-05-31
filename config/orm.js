@@ -35,10 +35,10 @@ var orm = {
     var queryString = "UPDATE burgers SET ? WHERE ?";
 
     console.log(queryString);
-    connection.query(queryString, {
+    connection.query(queryString, [{
       devoured: true,
       id: burgerID
-    },
+    }],
       function(err, result) {
       if (err) {
         throw err;
