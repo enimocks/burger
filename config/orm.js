@@ -18,10 +18,10 @@ var orm = {
 
     console.log(queryString);
 
-    connection.query(queryString, {
+    connection.query(queryString, [{
       burger_name: burger_name,
       devoured: false
-    }, 
+    }],
       function(err, result) {
         if (err) {
           throw err;
