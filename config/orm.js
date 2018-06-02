@@ -3,9 +3,9 @@ var connection = require("./connection.js");
 
 // Object for all our SQL statement functions.
 var orm = {
-  selectAll: function(cb) {
-    var queryString = "SELECT * FROM burgers;";
-    connection.query(queryString, function(err, result) {
+  selectAll: function (table, cb) {
+    var queryString = "SELECT * FROM ??;";
+    connection.query(queryString, [table], function(err, result) {
       if (err) {
         throw err;
       }
@@ -13,37 +13,25 @@ var orm = {
     });
   },
 
-  insertOne: function(burger_name, cb) {
-    var queryString = "INSERT INTO burgers SET ?";
-
-    console.log(queryString);
-
-    connection.query(queryString, [{
-      burger_name: burger_name,
-      devoured: false
-    }],
+  insertOne: function(table, colObj, cb) {
+    var queryString = "INSERT INTO ?? SET ?";
+    connection.query(queryString, [table, colObj],
       function(err, result) {
         if (err) {
           throw err;
         }
-
         cb(result);
       });
   },
-  
-  updateOne: function(burgerID, cb) {
-    var queryString = "UPDATE burgers SET ? WHERE ?";
 
-    console.log(queryString);
-    connection.query(queryString, [{
-      devoured: true,
-      id: burgerID
-    }],
+  updateOne: function (table, colToSet, condition, cb) {
+    var queryString = "UPDATE ?? SET ? WHERE ?";
+    connection.query(queryString,
+    [ table, colToSet, condition ],
       function(err, result) {
       if (err) {
         throw err;
       }
-
       cb(result);
     });
   }
